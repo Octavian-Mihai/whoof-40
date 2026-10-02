@@ -31,6 +31,40 @@ Cloudflare's CDN. No install, no signup; pair your own strap over BLE
 
 ---
 
+
+## Architecture
+
+```mermaid
+flowchart LR
+    Strap[(WHOOP 4.0 strap)] <-->|BLE GATT| BLE
+
+    subgraph Web["web/ (static app)"]
+        BLE["js/ble/<br/>client · packet · crc · parsers · uuids<br/>capacitor-bridge"]
+        Data["js/data/<br/>db · schema · queries · export · integrity"]
+        Metrics["js/metrics/<br/>hrv · recovery · strain · sleep<br/>zones · workouts · insights"]
+        Health["js/health/<br/>apple · scale · sync"]
+        Sync[js/sync/client.js]
+        UI["app.js / app-mvp.js<br/>index.html"]
+        Dev["js/dev/<br/>capture · analyzer"]
+    end
+
+    DB[(Browser local DB)]
+    Fn["functions/api/<br/>sync.js · coach.js"]
+    LLM[(LLM provider)]
+    Remote[(Sync store)]
+
+    BLE --> Data --> DB
+    Data --> Metrics --> UI
+    Health --> Data
+    Sync -->|/api/sync| Fn --> Remote
+    UI -->|/api/coach| Fn --> LLM
+    Dev -.debug captures.-> BLE
+    Py["Python reference<br/>parser · sleep · zones (tests/)"] -.parity.-> Metrics
+    Cap["Capacitor iOS shell<br/>capacitor.config.json"] -.wraps.-> Web
+```
+
+More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+
 ## Pick your install path
 
 | Where you'll use it | Best path | Cost | Setup time |
