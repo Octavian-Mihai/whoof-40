@@ -32,6 +32,10 @@ Cloudflare's CDN. No install, no signup; pair your own strap over BLE
 ---
 
 
+## Screenshots
+
+![Overview dashboard](docs/screenshots/whoof.png)
+
 ## Architecture
 
 ```mermaid
