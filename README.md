@@ -34,7 +34,9 @@ Cloudflare's CDN. No install, no signup; pair your own strap over BLE
 
 ## Screenshots
 
-![Overview dashboard](docs/screenshots/whoof.png)
+![Overview dashboard with sleep, recovery and strain rings (sample data)](docs/screenshots/whoof.png)
+
+![Recovery page (sample data)](docs/screenshots/whoof-recovery.png)
 
 ## Architecture
 
